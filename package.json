@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "A dashboard to view metrics and information for our two clinics",
   "main": "index.js",
+  "repository": "https://github.com/dorktobes/metrics_dashboard",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Toby Hoshman",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
