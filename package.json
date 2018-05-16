@@ -5,11 +5,23 @@
   "main": "index.js",
   "repository": "https://github.com/dorktobes/metrics_dashboard",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon server/index.js"
   },
   "author": "Toby Hoshman",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3"
+    "apollo-boost": "^0.1.6",
+    "dataloader": "^1.4.0",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.9.2",
+    "pg-promise": "^8.4.4",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.4"
   }
 }
