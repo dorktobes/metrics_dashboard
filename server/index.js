@@ -34,6 +34,36 @@ app.get('/clinicians/:id/appointments', (req, res) => {
   });
 });
 
+app.get('/patients', (req, res) => {
+  models.patients.getAll()
+  .then((data) => {
+    res.send(data);
+  })
+  .catch((err) => {
+    res.send(err);
+  });
+});
+
+app.get('/patients/:id', (req, res) => {
+  models.patients.getById(req.params.id)
+  .then((data) => {
+    res.send(data);
+  })
+  .catch((err) => {
+    res.send(err);
+  });
+});
+
+app.get('/patients/:id/appointments', (req, res) => {
+  models.appointments.getByPatient(req.params.id)
+  .then((data) => {
+    res.send(data);
+  })
+  .catch((err) => {
+    res.send(err);
+  });
+});
+
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {

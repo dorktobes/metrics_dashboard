@@ -23,7 +23,7 @@ const appointments = {
     return db.any('SELECT * FROM appointments WHERE clinician_id = ${clinicianId}', { clinicianId });
   },
   getByPatient(patientId) {
-    return db.any('SELECT * FROM appointments WHERE pateint_id = ${patientId}', { patientId });
+    return db.any('SELECT * FROM appointments WHERE patient_id = ${patientId}', { patientId });
   },
   getByClinic(clinic) {
     return db.any('SELECT * FROM appointments WHERE clinic = ${clinic}', { clinic });
