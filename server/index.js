@@ -1,8 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const expressGraphQL = require('express-graphql');
 
 const models = require('./../db/models');
+const schema = require('./schema/');
 
 const app = express();
 
@@ -12,6 +14,11 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static(path.join(__dirname, '/../client/dist')));
+
+app.use('/graphql', expressGraphQL({
+  schema,
+  graphiql: true,
+}));
 
 app.get('/clinicians', (req, res) => {
   models.clinicians.getAll()
