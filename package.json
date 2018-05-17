@@ -7,10 +7,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "nodemon server/index.js",
-    "seed-db": "node ./db/init.js"
+    "seed-db": "node ./db/init.js",
+    "build:dev": "npx webpack --config webpack.config.js --watch --mode development"
   },
   "author": "Toby Hoshman",
   "license": "ISC",
+  "babel": {
+    "presets": [
+      "env",
+      "react",
+      "stage-2"
+    ]
+  },
   "dependencies": {
     "apollo-boost": "^0.1.6",
     "csv-parse": "^2.4.0",
@@ -24,6 +32,13 @@
     "react-dom": "^16.3.2"
   },
   "devDependencies": {
-    "nodemon": "^1.17.4"
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "nodemon": "^1.17.4",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3"
   }
 }
