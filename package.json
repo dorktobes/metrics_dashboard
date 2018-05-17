@@ -6,12 +6,14 @@
   "repository": "https://github.com/dorktobes/metrics_dashboard",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon server/index.js"
+    "start:dev": "nodemon server/index.js",
+    "seed-db": "node ./db/init.js"
   },
   "author": "Toby Hoshman",
   "license": "ISC",
   "dependencies": {
     "apollo-boost": "^0.1.6",
+    "csv-parse": "^2.4.0",
     "dataloader": "^1.4.0",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
