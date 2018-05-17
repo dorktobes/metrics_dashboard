@@ -1,5 +1,6 @@
 const db = require('./connect');
 
+/* eslint-disable no-template-curly-in-string */
 const clinicians = {
   getById(id) {
     return db.one('SELECT * FROM clinicians WHERE id = ${id}', { id });
@@ -32,7 +33,7 @@ const appointments = {
     return db.many('SELECT * FROM appointments');
   },
 };
-
+/* eslint-enable no-template-curly-in-string */
 module.exports = {
   clinicians,
   patients,
