@@ -45,7 +45,7 @@ const ClinicianType = new GraphQLObjectType({
       appointments: {
         type: new GraphQLList(AppointmentType),
         resolve({ id }, args, context) {
-          return context.models.appointments.getByClinician(id);
+          return context.models.appointments.cliniciansLoader.load(id);
         },
       },
     }
