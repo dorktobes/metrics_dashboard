@@ -18,6 +18,9 @@ app.use(express.static(path.join(__dirname, '/../client/dist')));
 app.use('/graphql', expressGraphQL({
   schema,
   graphiql: true,
+  context: {
+    models,
+  },
 }));
 
 app.get('/clinicians', (req, res) => {
