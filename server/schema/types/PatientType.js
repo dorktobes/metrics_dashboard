@@ -1,6 +1,5 @@
 const graphql = require('graphql');
 
-// const ClinicianType = require('./ClinicianType');
 const AppointmentType = require('./AppointmentType');
 
 const {
@@ -38,7 +37,7 @@ const PatientType = new GraphQLObjectType({
       clinician: {
         type: require('./ClinicianType'),
         resolve({ primary_clinician }, args, context) {
-          if(primary_clinician) {
+          if (primary_clinician) {
             return context.models.clinicians.getById(primary_clinician);
           }
           return null;
