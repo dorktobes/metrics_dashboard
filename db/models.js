@@ -15,7 +15,7 @@ const patients = {
     return db.one('SELECT * FROM patients WHERE id = ${id}', { id });
   },
   getAll() {
-    return db.any('SELECT * FROM clinicians');
+    return db.any('SELECT * FROM patients');
   },
 };
 
