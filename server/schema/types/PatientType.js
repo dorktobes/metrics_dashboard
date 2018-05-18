@@ -38,7 +38,7 @@ const PatientType = new GraphQLObjectType({
         type: require('./ClinicianType'),
         resolve({ primary_clinician }, args, context) {
           if (primary_clinician) {
-            return context.models.clinicians.getById(primary_clinician);
+            return context.models.clinicians.cliniciansLoader.load(primary_clinician);
           }
           return null;
         },
