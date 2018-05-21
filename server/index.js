@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const expressGraphQL = require('express-graphql');
 
@@ -7,6 +8,8 @@ const models = require('./../db/models');
 const schema = require('./schema/');
 
 const app = express();
+
+app.use(cors());
 
 app.use((req, res, next) => {
   console.log(`serving ${req.method} request at ${req.url}`);

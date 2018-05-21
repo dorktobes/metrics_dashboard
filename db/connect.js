@@ -12,7 +12,7 @@ const pgp = require('pg-promise')(initOptions);
 const db = pgp({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
-  database: 'metrics_dashboard',
+  database: process.env.DB_NAME,
 });
 
 module.exports = db;

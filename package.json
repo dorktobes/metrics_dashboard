@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "https://github.com/dorktobes/metrics_dashboard",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
     "start:dev": "nodemon server/index.js",
     "seed-db": "node ./db/init.js",
     "build:dev": "npx webpack --config webpack.config.js --watch --mode development"
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "apollo-boost": "^0.1.6",
+    "cors": "^2.8.4",
     "csv-parse": "^2.4.0",
     "dataloader": "^1.4.0",
     "dotenv": "^5.0.1",
@@ -34,13 +35,16 @@
     "react-dom": "^16.3.2"
   },
   "devDependencies": {
+    "axios": "^0.18.0",
     "babel-core": "^6.26.3",
+    "babel-jest": "^22.4.4",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
+    "jest": "^22.4.4",
     "nodemon": "^1.17.4",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.3"
