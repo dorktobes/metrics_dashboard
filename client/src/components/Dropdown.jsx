@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import query from '../queries/cliniciansDropdown';
+
+import mutation from '../queries/updateSelectedClinician';
 
 class Dropdown extends Component {
   renderOptions() {
@@ -16,7 +18,14 @@ class Dropdown extends Component {
   }
   render() {
     return (
-      <select>
+      <select onChange={(e) => {
+        this.props.updateSelectedClinician({
+          variables: {
+            id: e.target.value,
+          },
+        });
+      }}>
+        <option value={null}>Choose a clinician</option>
         {this.renderOptions()}
       </select>
     );
@@ -27,4 +36,7 @@ Dropdown.propTypes = {
   
 };
 
-export default graphql(query)(Dropdown);
+export default compose(
+  graphql(mutation, { name: 'updateSelectedClinician' }),
+  graphql(query),
+)(Dropdown);

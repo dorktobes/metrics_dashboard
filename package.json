@@ -21,7 +21,11 @@
   },
   "dependencies": {
     "apollo-boost": "^0.1.6",
+    "apollo-cache-inmemory": "^1.2.1",
+    "apollo-client": "^2.3.1",
+    "apollo-link": "^1.2.2",
     "apollo-link-http": "^1.5.4",
+    "apollo-link-state": "^0.4.1",
     "cors": "^2.8.4",
     "csv-parse": "^2.4.0",
     "dataloader": "^1.4.0",
