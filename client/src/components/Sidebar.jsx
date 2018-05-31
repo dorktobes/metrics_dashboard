@@ -8,7 +8,7 @@ class Sidebar extends Component {
   
   render() {
     return (
-      <div>
+      <div className="sidebar">
         <Dropdown />
         <MetaDisplay />
       </div>

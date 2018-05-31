@@ -7,6 +7,10 @@ export default gql`
       first_name
       last_name
       appointments{
+        patient{
+          first_name
+          last_name
+        }
         date_of_service
         no_show
         canceled

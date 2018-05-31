@@ -9,6 +9,8 @@ export default gql`
       specialty_1
       specialty_2
       specialty_3
+      target_patients_per_day
+      days_working
       appointments{
         date_of_service
         no_show

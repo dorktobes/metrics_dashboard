@@ -7,8 +7,8 @@ import mutation from '../queries/updateSelectedClinician';
 
 class Dropdown extends Component {
   renderOptions() {
-    if (!this.props.data.loading) {
-      return this.props.data.Clinicians.map(e => (
+    if (!this.props.loading) {
+      return this.props.Clinicians.map(e => (
         <option key={e.id} value={e.id}>
           {`${e.last_name}, ${e.first_name}`}
         </option>
@@ -37,6 +37,15 @@ Dropdown.propTypes = {
 };
 
 export default compose(
-  graphql(mutation, { name: 'updateSelectedClinician' }),
-  graphql(query),
+  graphql(mutation, {
+    name: 'updateSelectedClinician',
+  }),
+  graphql(query, {
+    props: ({ data: { loading, Clinicians } }) => (
+      {
+        loading,
+        Clinicians,
+      }
+    ),
+  }),
 )(Dropdown);
