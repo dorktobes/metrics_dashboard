@@ -13,7 +13,6 @@ class DataDisplay extends Component {
     super(props);
     this.state = {
       month: 0,
-      year: 2016,
     };
 
     this.changeMonth = this.changeMonth.bind(this);
@@ -22,20 +21,8 @@ class DataDisplay extends Component {
 
   changeMonth(e) {
     this.setState({
-      month: parseInt(e.target.value),
-    })
-  }
-
-  
-
-  renderAppointments() {
-    if (!this.props.loading && this.props.Clinician) {
-      return this.filterAppointmentsByMonth(this.state.month, this.props.Clinician.appointments)
-        .map(e => (
-          <div key={e.date_of_service + e.patient.last_name + e.patient.first_name}>{`on ${e.date_of_service} with ${e.patient.first_name} ${e.patient.last_name}`}</div>
-        ));
-    }
-    return [];
+      month: parseInt(e.target.value, 10),
+    });
   }
   render() {
     const { Clinician } = this.props;
@@ -43,7 +30,6 @@ class DataDisplay extends Component {
       return (
         <div className="dataDisplay">
           <MonthDropDown handleChange={this.changeMonth} />
-          {this.renderAppointments()}
           <Histogram data={
             this.filterAppointmentsByMonth(this.state.month, this.props.Clinician.appointments)
           }
@@ -60,25 +46,35 @@ class DataDisplay extends Component {
 }
 
 DataDisplay.propTypes = {
-  
+  loading: PropTypes.bool.isRequired,
+  Clinician: PropTypes.shape({
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    appointments: PropTypes.arrayOf(PropTypes.shape({
+      canceled: PropTypes.bool.isRequired,
+      no_show: PropTypes.bool.isRequired,
+      date_of_service: PropTypes.string.isRequired,
+      patient: PropTypes.shape({
+        first_name: PropTypes.string.isRequired,
+        last_name: PropTypes.string.isRequired,
+      }),
+    })),
+  }),
 };
 
 export default compose(
   graphql(stateQuery, {
     name: 'stateQuery',
-    props: (props) => {
-      return { selectedClinician: props.stateQuery.selectedClinician.id, };
-    },
+    props: props => ({ selectedClinician: props.stateQuery.selectedClinician.id }),
   }),
   graphql(httpQuery, {
     name: 'httpQuery',
-    props: (props) => {
-      return {
-        ...props.ownProps,
-        loading: props.httpQuery.loading,
-        errors: props.httpQuery.errors,
-        Clinician: props.httpQuery.Clinician,
-      };
-    },
+    props: props => ({
+      ...props.ownProps,
+      loading: props.httpQuery.loading,
+      errors: props.httpQuery.errors,
+      Clinician: props.httpQuery.Clinician,
+    }),
   }),
 )(DataDisplay);

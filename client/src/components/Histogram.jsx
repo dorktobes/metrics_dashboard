@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import d3, { Chart } from 'react-d3-core';
-// import d3Basic, { LineChart } from 'react-d3-basic';
+import { Bar } from 'react-chartjs-2';
 
 
 class Histogram extends Component {
   createBins() {
     const { data } = this.props;
     const bins = this.generateEmptyWeeks();
-    data.forEach(({ date_of_service }) => {
+    data.forEach((e) => {
       for (let i = 0; i < bins.length; i += 1) {
-        const apptDate = new Date(date_of_service);
+        const apptDate = new Date(e.date_of_service);
         if (bins[i].weekStart <= apptDate && bins[i].weekEnd >= apptDate) {
-          bins[i].appointmentsCount += 1;
+          if (!e.canceled && !e.no_show) {
+            bins[i].appointmentsCount += 1;
+          }
         }
       }
     });
-    console.log(bins);
+    return bins;
   }
 
   generateEmptyWeeks() {
@@ -47,36 +48,41 @@ class Histogram extends Component {
     }
     return bins;
   }
+  buildChartData() {
+    const data = {
+      labels: [],
+      datasets: [{
+        label: 'Appointments',
+        data: [],
+        backgroundColor: '#00cc00',
+        borderWidth: 1,
+        hoverBorderWidth: 3,
+      }],
+    };
+    const bins = this.createBins();
+    bins.forEach((e) => {
+      let weekStart = e.weekStart.toDateString();
+      weekStart = weekStart.slice(0, weekStart.length - 5);
 
-  renderChart() {
-    const width = 700;
-    const height = 300;
-    const margins = {left: 100, right: 100, top: 50, bottom: 50};
-    const title = "Appointments per Week";
+      let weekEnd = e.weekEnd.toDateString();
+      weekEnd = weekEnd.slice(0, weekEnd.length - 5);
 
-    // return (<Chart
-    //   title={title}
-    //   width={width}
-    //   height={height}
-    //   margins= {margins}
-    //   >
-    //   <LineChart
-    //     margins= {margins}
-    //     title={title}
-    //     data={chartData}
-    //     width={width}
-    //     height={height}
-    //     chartSeries={chartSeries}
-    //     x={x}
-    //   />
-    // </Chart>);
+      data.labels.push(`${weekStart} - ${weekEnd}`);
+      data.datasets[0].data.push(e.appointmentsCount);
+    });
+    return data;
   }
+
   render() {
-    this.createBins();
     return (
-      <div className="canvas">
-        {this.renderChart()}
-      </div>
+      <Bar
+        data={this.buildChartData()}
+        width={300}
+        height={50}
+        options={{
+          maintainAspectRatio: false,
+        }}
+      />
     );
   }
 }
