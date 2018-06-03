@@ -66,25 +66,36 @@ class MetaDisplay extends Component {
 }
 
 MetaDisplay.propTypes = {
-  
+  loading: PropTypes.bool.isRequired,
+  Clinician: PropTypes.shape({
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    target_patients_per_day: PropTypes.int,
+    appointments: PropTypes.arrayOf(PropTypes.shape({
+      canceled: PropTypes.bool.isRequired,
+      no_show: PropTypes.bool.isRequired,
+      date_of_service: PropTypes.string.isRequired,
+      patient: PropTypes.shape({
+        first_name: PropTypes.string.isRequired,
+        last_name: PropTypes.string.isRequired,
+      }),
+    })),
+  }),
 };
 
 export default compose(
   graphql(stateQuery, {
     name: 'stateQuery',
-    props: (props) => {
-      return { selectedClinician: props.stateQuery.selectedClinician.id, };
-    },
+    props: props => ({ selectedClinician: props.stateQuery.selectedClinician.id }),
   }),
   graphql(httpQuery, {
     name: 'httpQuery',
-    props: (props) => {
-      return {
-        ...props.ownProps,
-        loading: props.httpQuery.loading,
-        errors: props.httpQuery.errors,
-        Clinician: props.httpQuery.Clinician,
-      };
-    },
+    props: props => ({
+      ...props.ownProps,
+      loading: props.httpQuery.loading,
+      errors: props.httpQuery.errors,
+      Clinician: props.httpQuery.Clinician,
+    }),
   }),
 )(MetaDisplay);
